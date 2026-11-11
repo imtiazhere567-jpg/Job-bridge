@@ -119,6 +119,27 @@ async function init(d: Driver) {
     const { fixSlugs } = await import("./slug-fix");
     await fixSlugs(t);
   });
+  await syncOwner(d);
+}
+
+/**
+ * Keep the owner login in step with OWNER_EMAIL / OWNER_PASSWORD / OWNER_NAME.
+ * The owner is created once, so without this, changing these settings on Vercel later would do nothing.
+ */
+async function syncOwner(d: Driver) {
+  const email = process.env.OWNER_EMAIL?.trim().toLowerCase();
+  const password = process.env.OWNER_PASSWORD;
+  const name = process.env.OWNER_NAME?.trim();
+  if (!email && !password && !name) return;
+  const owner = await d.one<{ id: number; email: string; name: string; password_hash: string }>("select id, email, name, password_hash from users where kind = 'owner' order by id limit 1");
+  if (!owner) return;
+  const bcrypt = (await import("bcryptjs")).default;
+  const newEmail = email || owner.email;
+  const newName = name || owner.name;
+  const samePassword = !password || (await bcrypt.compare(password, owner.password_hash));
+  if (newEmail === owner.email && newName === owner.name && samePassword) return;
+  const hash = samePassword ? owner.password_hash : await bcrypt.hash(password!, 10);
+  await d.q("update users set email = $1, name = $2, password_hash = $3 where id = $4", [newEmail, newName, hash, owner.id]);
 }
 
 const g = globalThis as unknown as { __callaDb?: Promise<Driver>; __callaTimer?: NodeJS.Timeout };
