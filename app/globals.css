@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+/*
+  JobBridge · brand guide (taken from the logo)
+  Navy     #063B67  "JOB" in the logo: headings, primary buttons, text on light   (token: lagoon)
+  Deep     #04294A  pressed / darkest surfaces                                     (token: deep)
+  Blue     #047CD3  "BRIDGE" in the logo: call-to-action buttons, links, accents   (token: coral)
+  Sky      #3A9BE8  the arch and arrow: bars, bullets, focus rings                 (token: seafoam)
+  Ice      #E7F1FB  soft fills, selected rows                                      (token: mint)
+  Mist     #F5F8FC  app background                                                 (token: pearl)
+  Line     #DCE5EF  borders and dividers                                           (token: shell)
+  Silver   #8B898A  "CONNECTING TALENT TO OPPORTUNITY" tagline                     (token: silver)
+  Ink      #0C1B2E  body text
+  Slate    #5B6878  secondary text
+  Success  #0E7A4E  "strong fit", hired                                          (token: seafoam-dark)
+  Type: Montserrat 700/800 (geometric, like the wordmark) for headings + Manrope for UI text
+  Motifs: the bridge arc and four-point star from the logo; navy to blue gradient (logo arch)
+  Token names are kept from the first version so every screen picks up the new colours.
+*/
+
+@theme {
+  --color-lagoon: #063b67;
+  --color-deep: #04294a;
+  --color-seafoam: #3a9be8;
+  --color-seafoam-dark: #0e7a4e;
+  --color-mint: #e7f1fb;
+  --color-pearl: #f3f7fb;
+  --color-shell: #dce5ef;
+  --color-coral: #047cd3;
+  --color-coral-soft: #e3f0fc;
+  --color-silver: #8b898a;
+  --color-ink: #0c1b2e;
+  --color-slate: #5b6878;
+  --color-amber: #a8701a;
+  --color-amber-soft: #fbf1de;
+  --color-rust: #b0413e;
+  --color-rust-soft: #f9e5e4;
+
+  --font-display: var(--font-montserrat), system-ui, sans-serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+
+  --radius-card: 18px;
+}
+
+html,
+body {
+  background: var(--color-pearl);
+  color: var(--color-ink);
+}
+
+/* Calm, static interface: no animations anywhere. */
+*,
+*::before,
+*::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Selected text: light brand blue behind dark navy text, so it reads on white pages and on dark banners or chat bubbles alike. */
+::selection {
+  background: #bfdcf7;
+  color: #063b67;
+}
+
+@utility card {
+  background: #fff;
+  border: 1px solid var(--color-shell);
+  border-radius: var(--radius-card);
+  box-shadow: 0 1px 2px rgba(6, 59, 103, 0.05), 0 8px 24px -18px rgba(6, 59, 103, 0.25);
+}
+
+/* Navy to blue, like the arch in the logo. */
+@utility bridge-gradient {
+  background: linear-gradient(120deg, #04294a 0%, #063b67 45%, #0a5ea8 100%);
+}
+
+@utility eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-slate);
+}
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.6rem 1.15rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.1;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+@utility btn-primary {
+  background: var(--color-lagoon);
+  color: #fff;
+  &:hover {
+    background: var(--color-deep);
+  }
+}
+
+@utility btn-ghost {
+  background: #fff;
+  color: var(--color-lagoon);
+  border: 1px solid var(--color-shell);
+  &:hover {
+    border-color: var(--color-seafoam);
+  }
+}
+
+@utility btn-coral {
+  background: var(--color-coral);
+  color: #fff;
+  &:hover {
+    background: #0366b0;
+  }
+}
+
+@utility field {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--color-shell);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.925rem;
+  color: var(--color-ink);
+  &:focus {
+    outline: 2px solid var(--color-seafoam);
+    outline-offset: 1px;
+    border-color: var(--color-seafoam);
+  }
+}
+
+@utility label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 0.35rem;
+}
+
+@utility chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Arch frame used on the careers site: a nod to the calla lily and a tooth crown. */
+@utility arch {
+  border-radius: 999px 999px 18px 18px;
+}
+
+.prose-calla p {
+  margin: 0 0 0.9rem;
+  line-height: 1.7;
+}
+.prose-calla h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--color-lagoon);
+  margin: 1.6rem 0 0.6rem;
+}
+.prose-calla ul {
+  margin: 0 0 0.9rem;
+  padding: 0;
+  list-style: none;
+}
+.prose-calla li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.45rem;
+  line-height: 1.6;
+}
+.prose-calla li::before {
+  content: "";
+  position: absolute;
+  left: 0.2rem;
+  top: 0.62rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px 999px 3px 3px;
+  background: var(--color-seafoam);
+}
+
+/* ---------- Dropdowns in the brand style (every <select> in the app) ---------- */
+select {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 2.4rem !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23047CD3' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  font-weight: 600;
+  color: var(--color-lagoon);
+}
+select:hover { border-color: var(--color-seafoam); }
+
+/* Browsers that allow it (Chrome, Edge): the open list is styled too. */
+@supports (appearance: base-select) {
+  select,
+  ::picker(select) {
+    appearance: base-select;
+  }
+  select {
+    display: flex;
+    align-items: center;
+    background-image: none;
+  }
+  select::picker-icon {
+    content: "";
+    width: 16px;
+    height: 16px;
+    margin-left: auto;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23047CD3' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center / 16px no-repeat;
+    position: absolute;
+    right: 0.8rem;
+  }
+  select { position: relative; }
+  select:open { border-color: var(--color-coral); }
+  ::picker(select) {
+    margin-top: 6px;
+    padding: 6px;
+    border: 1px solid var(--color-shell);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 12px 32px rgba(6, 59, 103, 0.16);
+  }
+  option {
+    padding: 0.55rem 0.8rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  option::checkmark { display: none; }
+  option:hover,
+  option:focus-visible {
+    background: var(--color-mint);
+    color: var(--color-lagoon);
+    outline: none;
+  }
+  option:checked {
+    background: var(--color-lagoon);
+    color: #fff;
+  }
+}
+
+/* ---------- Poster editor fonts (same files the poster images use) ---------- */
+@font-face { font-family: "PMontserrat"; src: url("/fonts/montserrat-latin-500-normal.woff") format("woff"); font-weight: 500; font-display: block; }
+@font-face { font-family: "PMontserrat"; src: url("/fonts/montserrat-latin-600-normal.woff") format("woff"); font-weight: 600; font-display: block; }
+@font-face { font-family: "PMontserrat"; src: url("/fonts/montserrat-latin-700-normal.woff") format("woff"); font-weight: 700; font-display: block; }
+@font-face { font-family: "PMontserrat"; src: url("/fonts/montserrat-latin-800-normal.woff") format("woff"); font-weight: 800; font-display: block; }
+@font-face { font-family: "PMontserrat"; src: url("/fonts/montserrat-latin-900-normal.woff") format("woff"); font-weight: 900; font-display: block; }
+@font-face { font-family: "PFigtree"; src: url("/fonts/figtree-latin-500-normal.woff") format("woff"); font-weight: 500; font-display: block; }
+@font-face { font-family: "PFigtree"; src: url("/fonts/figtree-latin-700-normal.woff") format("woff"); font-weight: 700; font-display: block; }
+@font-face { font-family: "PScript"; src: url("/fonts/great-vibes-latin-400-normal.woff") format("woff"); font-weight: 400; font-display: block; }
